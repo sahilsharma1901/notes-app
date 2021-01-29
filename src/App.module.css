@@ -1,0 +1,47 @@
+.container{
+    width: 100%;
+}
+
+.notesSubContainer {
+    width: 50rem;
+    max-width: 80%;
+    margin: 2rem auto 0 auto;
+}
+
+.clearPrompt {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: .5rem;
+    background-color: #c7c7c7;
+    border-radius: .5rem;
+}
+
+.info > p {
+    color: #727272;
+    font-size: .85rem;
+    letter-spacing: .3px;
+    margin-right: .3rem;
+}
+
+.cancelLogo {
+    height: 1rem;
+    width: 1rem;
+    border-radius: 50%;
+}
+
+.cancelLogo > img {
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+    transform: rotate(45deg);
+    cursor: pointer;
+}
+

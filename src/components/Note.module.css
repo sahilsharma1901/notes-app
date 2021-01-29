@@ -1,0 +1,56 @@
+.noteContainer {
+    width: 95%;
+    margin: 1.5rem auto;
+    padding: .5rem;
+    border-radius: .75rem;
+    box-shadow: 0 3px 4px 3px #ececec;
+}
+
+.noteHeader {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: .5rem 1rem;
+}
+
+.noteHeader>h2 {
+    width: 75%;
+    font-size: 1.5rem;
+    color: #131313;
+    word-wrap: break-word;
+
+}
+
+.actionButtons {
+    display: flex;
+    justify-content: space-between;
+    width: max-content;
+    align-items: center;
+}
+
+.actionButton {
+    height: 2rem;
+    width: 2rem;
+    padding: .25rem;
+    border-radius: 50%;
+    cursor: pointer;
+    margin: 0 .5rem;
+}
+
+.actionButton>img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.noteBody {
+    width: 100%;
+    padding: .5rem 1rem;
+}
+
+.noteBody p {
+    color: #868686;
+    font-size: 1rem;
+    word-wrap: break-word;
+}

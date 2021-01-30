@@ -83,3 +83,12 @@
 .submitButton:disabled {
     cursor: not-allowed;
 }
+
+
+.errorContent {
+    color: red;
+    font-size: .9rem;
+    text-align: center;
+    margin: .15rem 0;
+}
+

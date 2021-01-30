@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./EditOverlay.module.css";
 
-const EditOverlay = ({ noteInfo, setNoteInfo, hideOverlay, done }) => {
+const EditOverlay = ({ noteInfo, setNoteInfo, done, editingError, hideError }) => {
 
   return (
     <div className={styles.overlayContainer}>
@@ -16,6 +16,7 @@ const EditOverlay = ({ noteInfo, setNoteInfo, hideOverlay, done }) => {
               id="title"
               placeholder="Enter note title"
               value={noteInfo.title}
+              onClick={hideError}
               autoComplete="false"
               autoFocus
               required
@@ -27,6 +28,7 @@ const EditOverlay = ({ noteInfo, setNoteInfo, hideOverlay, done }) => {
               }
             />
           </div>
+          {editingError && <div className={styles.errorContent}>{editingError}</div>}
           <div className={styles.input}>
             <label htmlFor="description">Description</label>
             <textarea
@@ -48,8 +50,7 @@ const EditOverlay = ({ noteInfo, setNoteInfo, hideOverlay, done }) => {
             disabled={noteInfo.title === "" || noteInfo.description === ""}
             className={styles.submitButton}
             onClick={() => {
-              done();
-              hideOverlay();
+              done(noteInfo);
             }}
           >
             Save

@@ -3,7 +3,7 @@ import Add from "../assets/add.svg";
 import Up from "../assets/chevron-arrow-up.svg";
 import styles from "./NotesHeader.module.css";
 
-const NotesHeader = ({ addNotesSectionShown, showAddNote, addNote, noteInfo, setNoteInfo }) => {
+const NotesHeader = ({ addNotesSectionShown, showAddNote, addNote, noteInfo, setNoteInfo, hideError }) => {
 
   return (
     <div className={styles.notesHeaderContainer}>
@@ -28,6 +28,7 @@ const NotesHeader = ({ addNotesSectionShown, showAddNote, addNote, noteInfo, set
             type="text"
             name="title"
             id="title"
+            onClick={hideError}
             placeholder="Enter note title"
             value={noteInfo.title}
             required
@@ -62,8 +63,7 @@ const NotesHeader = ({ addNotesSectionShown, showAddNote, addNote, noteInfo, set
         </div>
         <button disabled={noteInfo.title === "" || noteInfo.description === ""} className={styles.submitButton} onClick={() => {
           addNote(noteInfo);
-          showAddNote();
-          setNoteInfo({...noteInfo, title: "", description: ""});
+          showAddNote(noteInfo);
         }}>Save</button>
       </div>
     </div>

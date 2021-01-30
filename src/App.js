@@ -8,6 +8,8 @@ import styles from "./App.module.css";
 
 function App() {
   const [notes, setNotes] = useState([]);
+  const [error, setError] = useState("");
+  const [editingError, setEditingError] = useState("");
   const [clearPromptShown, setClearPromptShown] = useState(false);
   const [notesToDisplay, setNotesToDisplay] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -34,10 +36,22 @@ function App() {
 
   useEffect(() => {
     localStorage.setItem("notes", JSON.stringify(notes));
+    setNoteInfo({ id: "", title: "", description: "" });
   }, [notes]);
 
-  const toggleAddNote = () => {
-    setAddNotesSectionShown(!addNotesSectionShown);
+  useEffect(() => {
+    console.log(editOverlayShown);
+  }, [editOverlayShown]);
+
+  const toggleAddNote = (noteInfo) => {
+    const existingTitles = [...notes].map((note) => {
+      return note.title;
+    });
+    if (existingTitles.includes(noteInfo.title)) {
+      setAddNotesSectionShown(true);
+    } else {
+      setAddNotesSectionShown(!addNotesSectionShown);
+    }
   };
 
   const showAddNote = () => {
@@ -45,8 +59,21 @@ function App() {
   };
 
   const addNote = (noteInfo) => {
-    setNotes((notes) => [...notes, noteInfo].reverse());
-    setNotesToDisplay((notes) => [...notes, noteInfo].reverse());
+    const existingTitles = [...notes].map((note) => {
+      return note.title;
+    });
+    if (existingTitles.includes(noteInfo.title)) {
+      setError("This title already exists, try with some other title!");
+      setNoteInfo({
+        ...noteInfo,
+        title: noteInfo.title,
+        description: noteInfo.description,
+      });
+      setAddNotesSectionShown(true);
+    } else {
+      setNotes((notes) => [...notes, noteInfo].reverse());
+      setNotesToDisplay((notes) => [...notes, noteInfo].reverse());
+    }
   };
 
   const deleteNote = (id) => {
@@ -65,16 +92,26 @@ function App() {
     setEditOverlayShown(true);
   };
 
-  const onEditComplete = () => {
-    const updatedNotes = [...notes].map((note) => {
-      if (note.id === editNoteInfo.id) {
-        note.title = editNoteInfo.title;
-        note.description = editNoteInfo.description;
-      }
-      return note;
+  const onEditComplete = (noteInfo) => {
+    const existingTitles = [...notes].map((note) => {
+      return note.title;
     });
-    setNotes(updatedNotes);
-    setNotesToDisplay(updatedNotes);
+
+    if (existingTitles.includes(noteInfo.title)) {
+      setEditingError("Title already exists!");
+      setEditOverlayShown(true);
+    } else {
+      const updatedNotes = [...notes].map((note) => {
+        if (note.id === noteInfo.id) {
+          note.title = noteInfo.title;
+          note.description = noteInfo.description;
+        }
+        return note;
+      });
+      setNotes(updatedNotes);
+      setNotesToDisplay(updatedNotes);
+      setEditOverlayShown(false);
+    }
   };
 
   const onNoteSearch = (term) => {
@@ -100,7 +137,9 @@ function App() {
           addNote={addNote}
           noteInfo={noteInfo}
           setNoteInfo={setNoteInfo}
+          hideError={() => setError("")}
         />
+        {error && <div className={styles.errorContent}>{error}</div>}
         <SearchNotes
           searchTerm={searchTerm}
           setSearchTerm={setSearchTerm}
@@ -127,7 +166,8 @@ function App() {
             noteInfo={editNoteInfo}
             setNoteInfo={setEditNoteInfo}
             done={onEditComplete}
-            hideOverlay={() => setEditOverlayShown(false)}
+            editingError={editingError}
+            hideError={() => setEditingError("")}
           />
         )}
       </div>

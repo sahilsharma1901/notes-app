@@ -59,6 +59,7 @@
 .input > input , .input > textarea{
     width: 100%;
     max-width: 100%;
+    min-width: 100%;
     padding: .6rem;
     background-color: #fff;
     border: none;
@@ -66,6 +67,10 @@
     font-family: 'Roboto', sans-serif;
     outline: none;
     border: 2px solid #023e8a;
+}
+
+.input > textarea {
+    min-height: 150px;
 }
 
 .input > input:focus, .input > textarea:focus {

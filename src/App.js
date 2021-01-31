@@ -27,6 +27,12 @@ function App() {
   });
 
   useEffect(() => {
+    if(searchTerm === "") {
+      setNotesToDisplay(notes);
+    }
+  }, [searchTerm, notes]);
+
+  useEffect(() => {
     const notes = JSON.parse(localStorage.getItem("notes"));
     if (notes && notes.length >= 0) {
       setNotes(notes);

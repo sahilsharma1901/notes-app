@@ -27,9 +27,7 @@ function App() {
   });
 
   useEffect(() => {
-    if(searchTerm === "") {
-      setNotesToDisplay(notes);
-    }
+    setNotesToDisplay(notes);
   }, [searchTerm, notes]);
 
   useEffect(() => {
